@@ -35,6 +35,7 @@ services:
             - LOGGI_SERVER=ngircd
             - LOGGI_PORT=6697
             - LOGGI_USER=bot-log
+            - LOGGI_NICK=bot-log-nick
             - LOGGI_KEY=MyPasswd1234
             - LOGGI_CHANNELS=name=#chan0,key=pwd,log;name=#chan1,key=pwd,log,len=100
             - LOGGI_TLS=1
