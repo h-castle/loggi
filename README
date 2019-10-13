@@ -1,0 +1,41 @@
+Loggi is a simple logging bot for a small IRC server, written to keep channel history
+on my home ngIRCd.
+
+The bot is controlled by sending privmsg with commands to it (/msg <bot-nick> <command>).
+The following commands are available:
+
+join <channel>                | join the channel
+part <channel>                | part from the channel
+log <channel>                 | get logging status - returns 'enabled'/'disabled'
+log <channel> set_enabled     | enable logging on channel
+log <channel> set_disabled    | disable logging on channel
+log <channel> length          | get max number of logged messages for channel, if no such limit - returns empty message
+log <channel> length <number> | set max number of logged messages for channel
+log <channel> read            | get logged messages in channel
+log <channel> read <+-number> | get number of first/last logged messages in channel
+log <channel> reset           | clear channel's log
+
+NOTE per-channel logs (accessible through the /msg interface) are sotred in-memory.
+NOTE To use 'log' and 'part' commands for a channel, you should be present on that channel
+
+The interface is a bit raw/wordy/inconvenient, but I beleive user can handle it by
+defining macroses on his client.
+
+Logs are printed to stdout, so users can make further processing by attaching
+to it (or just redirrect to /dev/null)
+
+Example of basic docker-compose.yml (with env variables used):
+version: "2.2"
+
+services:
+    loggi:
+        image: loggi
+        build: https://github.com/h-castle/loggi.git
+        environment:
+            - LOGGI_SERVER=ngircd
+            - LOGGI_PORT=6697
+            - LOGGI_USER=bot-log
+            - LOGGI_KEY=MyPasswd1234
+            - LOGGI_CHANNELS=name=#chan0,key=pwd,log;name=#chan1,key=pwd,log,len=100
+            - LOGGI_TLS=1
+            - PYTHONIOENCODING=utf-8
