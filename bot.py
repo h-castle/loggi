@@ -225,7 +225,7 @@ def args_chan_str2desc(chan_str):
             v = val(p, v, int, lambda x: x > 0)
             c.log_length = v
         else:     
-            raise BotUsageException("invalid param '%p'" % p)
+            raise BotUsageException("invalid param '%s'" % p)
 
     if not c.name:
         raise BotUsageException("'name' param missed")
