@@ -287,6 +287,7 @@ def cli_args_parse():
     parser.add_argument('-k', '--key', help='user\'s key on the IRC server', type=str, default=None)
 
     parser.add_argument('-n', '--nick', help='nickname on the IRC server', type=str, default=None)
+    parser.add_argument('-r', '--realname', help='realname on the IRC server', type=str, default=None)
     parser.add_argument('-t', '--tls', help='use TLS for connection to IRC server', action='store_true', default=False)
     parser.add_argument('--tls-no-verify', help='use TLS for connection to IRC server (trust certificate)',
         action='store_true', default=False)
@@ -324,13 +325,20 @@ if cli_args.tls or cli_args.tls_no_verify:
 else:
     connect_factory = irc.connection.Factory()
 
-nick = cli_args.nick
-if not nick:
+if cli_args.nick:
+    nick = cli_args.nick
+else:
     nick = cli_args.user
+
+if cli_args.realname:
+    realname = cli_args.realname
+else:
+    realname = nick
 
 bot = irc.bot.SingleServerIRCBot(
         [(cli_args.server, cli_args.port, cli_args.key)],
-        cli_args.user, nick,
+        nickname = nick,
+        realname = realname,
         reconnection_interval = cli_args.reconnection_interval,
         connect_factory = connect_factory,
         username = cli_args.user)
