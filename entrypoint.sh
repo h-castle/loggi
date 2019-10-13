@@ -1,18 +1,18 @@
 #!/bin/sh
 
-if [ "$IRC_TLS" != "" ]
+if [ "$LOGGI_TLS" != "" ]
 then
     TLS=--tls
 fi
 
-if [ "$IRC_TLS_NO_VERIFY" != "" ]
+if [ "$LOGGI_TLS_NO_VERIFY" != "" ]
 then
     TLS_NO_VERIFY=--tls-no-verify
 fi
 
-if [ "$IRC_RECONNECTION_INTERVAL" != "" ]
+if [ "$LOGGI_RECONNECTION_INTERVAL" != "" ]
 then
-    RECONNECTION_INTERVAL="--reconnection-interval $IRC_RECONNECTION_INTERVAL"
+    RECONNECTION_INTERVAL="--reconnection-interval $LOGGI_RECONNECTION_INTERVAL"
 fi
 
-bot.py -s $IRC_SERVER -p $IRC_PORT -u $IRC_USER -k $IRC_KEY -c $IRC_CHANNELS $TLS $TLS_NO_VERIFY $RECONNECTION_INTERVAL
+loggi.py -s $LOGGI_SERVER -p $LOGGI_PORT -u $LOGGI_USER -k $LOGGI_KEY -c $LOGGI_CHANNELS $TLS $TLS_NO_VERIFY $RECONNECTION_INTERVAL
