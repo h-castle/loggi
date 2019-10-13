@@ -146,7 +146,7 @@ def cmd_part(c, src, args):
     channel, bye = unpack(args, [None, None])
 
     if not is_src_on_channel(channel, src):
-        raise BotUsageException("to use the command '%s' should be on the channel '%s'" % (src, channel))
+        raise BotUsageException("to use the command both bot and '%s' should be on the channel '%s'" % (src, channel))
 
     c.part(channel, bye)
 
@@ -154,7 +154,7 @@ def cmd_log(c, src, args):
     channel, action, arg = unpack(args, [None, '', None])
 
     if not is_src_on_channel(channel, src):
-        raise BotUsageException("to use the command '%s' should be on the channel '%s'" % (src, channel))
+        raise BotUsageException("to use the command both bot and '%s' should be on the channel '%s'" % (src, channel))
 
     action = action.lower()
 
